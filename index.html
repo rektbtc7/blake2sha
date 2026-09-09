@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Bitcoin BLAKE2b to Bitcoin SHA256 and USD converter">
+  <title>BLAKE2 SHA</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main class="app">
+
+    <header class="header">
+      <div class="bitcoin-symbol">₿</div>
+      <h1>BLAKE2 SHA</h1>
+      <p>CONVERTER</p>
+    </header>
+
+    <section class="converter">
+
+      <div class="currency-card">
+        <div class="currency-header">
+          <div>
+            <span class="currency-code">XBT</span>
+            <span class="currency-name">BITCOIN BLAKE2B</span>
+          </div>
+          <span class="source">NEOXA EXCHANGE</span>
+        </div>
+
+        <div class="market-price">
+          <span>PRICE</span>
+          <strong id="xbtPrice">Loading...</strong>
+        </div>
+
+        <input
+          id="xbtInput"
+          class="amount-input"
+          type="text"
+          inputmode="decimal"
+          autocomplete="off"
+          spellcheck="false"
+          value="1"
+          aria-label="XBT amount"
+        >
+      </div>
+
+      <div class="connector">
+        <span>↓</span>
+      </div>
+
+      <div class="currency-card">
+        <div class="currency-header">
+          <div>
+            <span class="currency-code">BTC</span>
+            <span class="currency-name">BITCOIN SHA256</span>
+          </div>
+          <span class="source">BINANCE</span>
+        </div>
+
+        <div class="market-price">
+          <span>PRICE</span>
+          <strong id="btcPrice">Loading...</strong>
+        </div>
+
+        <input
+          id="btcInput"
+          class="amount-input"
+          type="text"
+          inputmode="decimal"
+          autocomplete="off"
+          spellcheck="false"
+          value=""
+          aria-label="BTC amount"
+        >
+      </div>
+
+      <div class="connector">
+        <span>↓</span>
+      </div>
+
+      <div class="currency-card">
+        <div class="currency-header">
+          <div>
+            <span class="currency-code">USD</span>
+            <span class="currency-name">UNITED STATES DOLLAR</span>
+          </div>
+          <span class="source">CALCULATED</span>
+        </div>
+
+        <div class="market-price">
+          <span>VALUE</span>
+          <strong id="usdPrice">Loading...</strong>
+        </div>
+
+        <input
+          id="usdInput"
+          class="amount-input"
+          type="text"
+          inputmode="decimal"
+          autocomplete="off"
+          spellcheck="false"
+          value=""
+          aria-label="USD amount"
+        >
+      </div>
+
+    </section>
+
+    <div id="status" class="status">Loading market rates...</div>
+
+    <footer class="footer">
+      <p>Rates are updated when the page loads. Reload the page to refresh the current market rates.</p>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
