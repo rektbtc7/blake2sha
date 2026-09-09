@@ -1,55 +1,17 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BLAKE-TO-SHA">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-  >
-
-  <meta
-    name="theme-color"
-    content="#000000"
-  >
-
-  <meta
-    name="description"
-    content="Bitcoin BLAKE2b to Bitcoin SHA256 and USD converter"
-  >
-
-  <meta
-    name="apple-mobile-web-app-capable"
-    content="yes"
-  >
-
-  <meta
-    name="apple-mobile-web-app-status-bar-style"
-    content="black"
-  >
-
-  <meta
-    name="apple-mobile-web-app-title"
-    content="BLAKE-TO-SHA"
-  >
-
-  <link
-    rel="manifest"
-    href="/manifest.json"
-  >
-
-  <link
-    rel="icon"
-    type="image/png"
-    href="/icon.png"
-  >
-
-  <link
-    rel="apple-touch-icon"
-    href="/icon.png"
-  >
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/png" href="/icon.png">
+  <link rel="apple-touch-icon" href="/icon.png">
 
   <title>BLAKE-TO-SHA</title>
 
@@ -58,644 +20,413 @@
       box-sizing: border-box;
     }
 
-    html {
-      background: #000000;
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      background: #000;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     body {
-      margin: 0;
-      min-height: 100vh;
-      min-height: 100dvh;
-      background: #000000;
-      color: #ffffff;
-      font-family: Arial, Helvetica, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      padding-left: env(safe-area-inset-left);
-      padding-right: env(safe-area-inset-right);
-      padding-top: env(safe-area-inset-top);
-      padding-bottom: env(safe-area-inset-bottom);
-    }
-
-    .app {
-      width: 100%;
-      max-width: 620px;
-      margin: 0 auto;
-      padding: 48px 20px 32px;
-    }
-
-    .header {
-      text-align: center;
-      margin-bottom: 42px;
-    }
-
-    .bitcoin-symbol {
-      font-size: 42px;
-      line-height: 1;
-      font-weight: 400;
-      margin-bottom: 18px;
-    }
-
-    .header h1 {
-      margin: 0;
-      font-size: 25px;
-      line-height: 1.2;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-    }
-
-    .header p {
-      margin: 9px 0 0;
-      font-size: 10px;
-      line-height: 1;
-      letter-spacing: 0.22em;
-      color: #8a8a8a;
-    }
-
-    .converter {
-      width: 100%;
-    }
-
-    .currency-card {
-      width: 100%;
-      border: 1px solid #ffffff;
-      padding: 18px;
-    }
-
-    .currency-header {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 20px;
-      margin-bottom: 18px;
-    }
-
-    .currency-code {
-      display: block;
-      font-size: 26px;
-      line-height: 1;
-      font-weight: 400;
-      letter-spacing: 0.08em;
-    }
-
-    .currency-name {
-      display: block;
-      margin-top: 7px;
-      font-size: 9px;
-      line-height: 1.2;
-      letter-spacing: 0.12em;
-      color: #8a8a8a;
-    }
-
-    .source {
-      font-size: 9px;
-      line-height: 1.2;
-      letter-spacing: 0.1em;
-      color: #8a8a8a;
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    .market-price {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 20px;
-      margin-bottom: 14px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid #333333;
-    }
-
-    .market-price span {
-      font-size: 9px;
-      letter-spacing: 0.14em;
-      color: #777777;
-    }
-
-    .market-price strong {
-      font-size: 13px;
-      line-height: 1;
-      font-weight: 400;
-      text-align: right;
-    }
-
-    .input-wrapper {
-      position: relative;
-      width: 100%;
-      border: 1px solid #555555;
-      background: #050505;
-      transition:
-        border-color 0.15s ease,
-        background 0.15s ease;
-    }
-
-    .input-wrapper::before {
-      content: "TYPE AMOUNT";
-      position: absolute;
-      top: 8px;
-      left: 10px;
-      font-size: 8px;
-      line-height: 1;
-      letter-spacing: 0.14em;
-      color: #666666;
-      pointer-events: none;
-    }
-
-    .input-wrapper:focus-within {
-      border-color: #ffffff;
-      background: #0d0d0d;
-    }
-
-    .amount-input {
-      display: block;
-      width: 100%;
-      height: 76px;
-      margin: 0;
-      padding: 22px 10px 7px;
-      border: 0;
-      outline: 0;
-      background: transparent;
-      color: #ffffff;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 34px;
-      line-height: 1.2;
-      font-weight: 300;
-      letter-spacing: 0.01em;
-      text-align: right;
-      appearance: none;
-    }
-
-    .amount-input:focus {
-      outline: none;
-    }
-
-    .amount-input::selection {
-      background: #ffffff;
-      color: #000000;
-    }
-
-    .amount-input::placeholder {
-      color: #444444;
-      opacity: 1;
-    }
-
-    .connector {
-      height: 52px;
-      display: flex;
-      align-items: center;
       justify-content: center;
     }
 
-    .connector span {
+    .container {
+      width: 100%;
+      max-width: 560px;
+      padding: 32px 20px 24px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      color: #888;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .converter {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card {
+      border: 1px solid #333;
+      padding: 18px;
+      background: #050505;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .label {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+    }
+
+    .type {
+      color: #777;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+    }
+
+    .input-wrapper {
+      border: 1px solid #444;
+      background: #000;
+      transition: border-color 0.15s ease;
+    }
+
+    .input-wrapper:focus-within {
+      border-color: #fff;
+    }
+
+    input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: #fff;
+      padding: 14px;
       font-size: 18px;
-      color: #666666;
+      font-family: inherit;
+    }
+
+    input::placeholder {
+      color: #555;
+    }
+
+    .unit {
+      margin-top: 8px;
+      color: #666;
+      font-size: 11px;
+      letter-spacing: 0.05em;
     }
 
     .status {
-      min-height: 18px;
+      margin-top: 20px;
+      text-align: center;
+      color: #888;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .refresh-note {
       margin-top: 14px;
       text-align: center;
-      font-size: 9px;
-      line-height: 1.4;
-      letter-spacing: 0.12em;
-      color: #777777;
-      text-transform: uppercase;
+      color: #555;
+      font-size: 10px;
+      letter-spacing: 0.06em;
     }
 
     .description {
-      margin: 8px auto 0;
-      max-width: 520px;
-      text-align: center;
-      font-size: 10px;
+      margin: 12px 0 0;
+      color: #777;
+      font-size: 12px;
       line-height: 1.6;
-      letter-spacing: 0.03em;
-      color: #777777;
+      text-align: center;
     }
 
-    .pwa-section {
-      width: 100%;
+    .pwa-box {
       margin-top: 28px;
-      border: 1px solid #333333;
-      padding: 20px;
+      border: 1px solid #333;
+      background: #050505;
     }
 
-    .pwa-title {
-      margin: 0 0 8px;
-      text-align: center;
-      font-size: 13px;
-      line-height: 1.2;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-    }
-
-    .pwa-intro {
-      margin: 0 auto 18px;
-      max-width: 480px;
-      text-align: center;
-      color: #777777;
-      font-size: 10px;
-      line-height: 1.6;
-    }
-
-    .pwa-platform {
-      padding-top: 15px;
-      margin-top: 15px;
-      border-top: 1px solid #222222;
-    }
-
-    .pwa-platform:first-of-type {
-      padding-top: 0;
-      margin-top: 0;
-      border-top: 0;
-    }
-
-    .pwa-platform h3 {
-      margin: 0 0 7px;
-      font-size: 10px;
-      line-height: 1.2;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .pwa-platform p {
-      margin: 0;
-      color: #777777;
-      font-size: 10px;
-      line-height: 1.6;
-    }
-
-    .pwa-platform ol {
-      margin: 8px 0 0;
-      padding-left: 19px;
-      color: #777777;
-      font-size: 10px;
-      line-height: 1.6;
-    }
-
-    .pwa-platform li {
-      padding-left: 3px;
-    }
-
-    .install-section {
-      width: 100%;
-      margin-top: 18px;
-      text-align: center;
-    }
-
-    .install-button {
-      display: none;
-      padding: 10px 16px;
-      background: #000000;
-      color: #ffffff;
-      border: 1px solid #ffffff;
-      border-radius: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 10px;
+    .pwa-box summary {
+      padding: 16px 18px;
+      cursor: pointer;
+      list-style: none;
+      font-size: 11px;
+      font-weight: 700;
       letter-spacing: 0.1em;
-      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .pwa-box summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .pwa-box summary::after {
+      content: "+";
+      float: right;
+      color: #777;
+      font-size: 14px;
+    }
+
+    .pwa-box[open] summary::after {
+      content: "−";
+    }
+
+    .pwa-content {
+      border-top: 1px solid #222;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .pwa-text {
+      margin: 0;
+      color: #666;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    #installButton {
+      display: none;
+      margin-top: 14px;
+      padding: 10px 16px;
+      border: 1px solid #fff;
+      background: #000;
+      color: #fff;
+      font-family: inherit;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
       cursor: pointer;
     }
 
-    .install-button:hover {
-      background: #ffffff;
-      color: #000000;
+    #installButton:hover {
+      background: #fff;
+      color: #000;
     }
 
-    .footer {
-      margin-top: 28px;
-      padding-top: 18px;
-      border-top: 1px solid #222222;
+    .donations {
+      margin-top: 32px;
+      border: 1px solid #333;
+      padding: 22px 18px;
       text-align: center;
+      background: #050505;
     }
 
-    .footer p {
-      max-width: 430px;
-      margin: 0 auto;
-      font-size: 9px;
+    .donations-title {
+      margin: 0 0 10px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+    }
+
+    .donations-text {
+      margin: 0 0 20px;
+      color: #777;
+      font-size: 11px;
       line-height: 1.6;
-      letter-spacing: 0.04em;
-      color: #555555;
+    }
+
+    .qr-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .qr-code {
+      display: block;
+      width: 220px;
+      height: 220px;
+      object-fit: contain;
+      background: #fff;
+      padding: 8px;
+    }
+
+    .donation-label {
+      margin-bottom: 8px;
+      color: #555;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+    }
+
+    .donation-address {
+      border: 1px solid #444;
+      padding: 14px;
+      background: #000;
+      color: #fff;
+      font-family: monospace;
+      font-size: 11px;
+      line-height: 1.6;
+      word-break: break-all;
+      user-select: all;
+    }
+
+    footer {
+      margin-top: 32px;
+      padding-top: 18px;
+      border-top: 1px solid #1c1c1c;
+      text-align: center;
+      color: #444;
+      font-size: 10px;
+      letter-spacing: 0.08em;
     }
 
     @media (max-width: 480px) {
-
-      .app {
-        padding: 34px 14px 26px;
+      .container {
+        padding: 24px 14px 20px;
       }
 
-      .header {
-        margin-bottom: 32px;
+      h1 {
+        font-size: 27px;
       }
 
-      .bitcoin-symbol {
-        font-size: 36px;
+      input {
+        font-size: 16px;
       }
 
-      .header h1 {
-        font-size: 21px;
+      .qr-code {
+        width: 190px;
+        height: 190px;
       }
 
-      .currency-card {
-        padding: 15px;
-      }
-
-      .currency-header {
-        gap: 10px;
-      }
-
-      .currency-code {
-        font-size: 23px;
-      }
-
-      .source {
-        font-size: 8px;
-      }
-
-      .amount-input {
-        height: 70px;
-        font-size: 29px;
-      }
-
-      .input-wrapper::before {
-        font-size: 7px;
-      }
-
-      .connector {
-        height: 44px;
-      }
-
-      .pwa-section {
-        padding: 17px;
+      .donation-address {
+        font-size: 10px;
       }
     }
   </style>
 </head>
 
 <body>
+  <main class="container">
 
-  <main class="app">
-
-    <header class="header">
-
-      <div class="bitcoin-symbol">₿</div>
-
+    <header>
       <h1>BLAKE-TO-SHA</h1>
-
-      <p>CONVERTER</p>
-
+      <div class="subtitle">Bitcoin BLAKE2b · SHA256 · USD</div>
     </header>
 
     <section class="converter">
 
-      <div class="currency-card">
-
-        <div class="currency-header">
-
-          <div>
-
-            <span class="currency-code">
-              USD
-            </span>
-
-            <span class="currency-name">
-              UNITED STATES DOLLAR
-            </span>
-
-          </div>
-
-          <span class="source">
-            MARKET PRICE
-          </span>
-
-        </div>
-
-        <div class="market-price">
-
-          <span>VALUE</span>
-
-          <strong id="usdPrice">
-            USD
-          </strong>
-
+      <div class="card">
+        <div class="card-header">
+          <span class="label">USD</span>
         </div>
 
         <div class="input-wrapper">
-
           <input
-            id="usdInput"
-            class="amount-input"
-            type="text"
+            id="usd"
+            type="number"
             inputmode="decimal"
-            autocomplete="off"
-            spellcheck="false"
             placeholder="0.00"
-            value=""
-            aria-label="USD amount"
+            step="any"
+            autocomplete="off"
           >
-
         </div>
 
+        <div class="unit">UNITED STATES DOLLARS</div>
       </div>
 
-      <div class="connector">
-        <span>↓</span>
-      </div>
-
-      <div class="currency-card">
-
-        <div class="currency-header">
-
-          <div>
-
-            <span class="currency-code">
-              XBT
-            </span>
-
-            <span class="currency-name">
-              BITCOIN BLAKE2B
-            </span>
-
-          </div>
-
-          <span class="source">
-            NEOXA EXCHANGE
-          </span>
-
-        </div>
-
-        <div class="market-price">
-
-          <span>PRICE</span>
-
-          <strong id="xbtPrice">
-            Loading...
-          </strong>
-
+      <div class="card">
+        <div class="card-header">
+          <span class="label">XBT</span>
+          <span class="type">CALCULATED</span>
         </div>
 
         <div class="input-wrapper">
-
           <input
-            id="xbtInput"
-            class="amount-input"
-            type="text"
+            id="xbt"
+            type="number"
             inputmode="decimal"
-            autocomplete="off"
-            spellcheck="false"
             placeholder="0.00000000"
-            value=""
-            aria-label="XBT amount"
+            step="any"
+            autocomplete="off"
           >
-
         </div>
 
+        <div class="unit">BTC BLAKE2b</div>
       </div>
 
-      <div class="connector">
-        <span>↓</span>
-      </div>
-
-      <div class="currency-card">
-
-        <div class="currency-header">
-
-          <div>
-
-            <span class="currency-code">
-              BTC
-            </span>
-
-            <span class="currency-name">
-              BITCOIN SHA256
-            </span>
-
-          </div>
-
-          <span class="source">
-            MARKET PRICE
-          </span>
-
-        </div>
-
-        <div class="market-price">
-
-          <span>PRICE</span>
-
-          <strong id="btcPrice">
-            Loading...
-          </strong>
-
+      <div class="card">
+        <div class="card-header">
+          <span class="label">BTC</span>
+          <span class="type">CALCULATED</span>
         </div>
 
         <div class="input-wrapper">
-
           <input
-            id="btcInput"
-            class="amount-input"
-            type="text"
+            id="btc"
+            type="number"
             inputmode="decimal"
-            autocomplete="off"
-            spellcheck="false"
             placeholder="0.00000000"
-            value=""
-            aria-label="BTC amount"
+            step="any"
+            autocomplete="off"
           >
-
         </div>
 
+        <div class="unit">BTC SHA256</div>
       </div>
 
     </section>
 
-    <div
-      id="status"
-      class="status"
-    >
+    <div id="status" class="status">
       Loading market rates...
     </div>
 
-    <div class="description">
-      BLAKE-TO-SHA converts between Bitcoin BLAKE2b,
-      Bitcoin SHA256 and United States Dollars.
+    <div class="refresh-note">
+      MARKET RATES REFRESH AUTOMATICALLY
     </div>
 
-    <section class="pwa-section">
+    <p class="description">
+      BLAKE-TO-SHA converts between Bitcoin BLAKE2b, Bitcoin SHA256 and United States Dollars.
+    </p>
 
-      <h2 class="pwa-title">
-        INSTALL BLAKE-TO-SHA
-      </h2>
+    <details class="pwa-box">
+      <summary>INSTALL BLAKE-TO-SHA</summary>
 
-      <p class="pwa-intro">
-        Add BLAKE-TO-SHA to your device for quick access
-        without opening the browser each time.
+      <div class="pwa-content">
+        <p class="pwa-text">
+          On iPhone or iPad, open BLAKE-TO-SHA in Safari, tap the Share
+          button, then select "Add to Home Screen".
+          <br><br>
+          On Android, open the browser menu and select
+          "Install app" or "Add to Home screen".
+        </p>
+
+        <button id="installButton">INSTALL APP</button>
+      </div>
+    </details>
+
+    <section class="donations">
+      <h2 class="donations-title">DONATE</h2>
+
+      <p class="donations-text">
+        If BLAKE-TO-SHA is useful to you, you can support the project
+        with a Bitcoin BLAKE2b donation.
       </p>
 
-      <div class="pwa-platform">
-
-        <h3>iPhone / iPad</h3>
-
-        <p>
-          Safari does not display a standard install
-          prompt. Use the Share menu.
-        </p>
-
-        <ol>
-          <li>Open BLAKE-TO-SHA in Safari.</li>
-          <li>Tap the Share button.</li>
-          <li>Choose Add to Home Screen.</li>
-          <li>Tap Add.</li>
-        </ol>
-
-      </div>
-
-      <div class="pwa-platform">
-
-        <h3>Android</h3>
-
-        <p>
-          Chrome can install BLAKE-TO-SHA directly as an app.
-        </p>
-
-        <ol>
-          <li>Open BLAKE-TO-SHA in Chrome.</li>
-          <li>Tap the browser menu.</li>
-          <li>Choose Install app or Add to Home screen.</li>
-          <li>Confirm the installation.</li>
-        </ol>
-
-      </div>
-
-      <div class="pwa-platform">
-
-        <h3>Desktop</h3>
-
-        <p>
-          Supported desktop browsers can install the app
-          from their browser installation control.
-        </p>
-
-      </div>
-
-      <div class="install-section">
-
-        <button
-          id="installButton"
-          class="install-button"
-          type="button"
+      <div class="qr-wrapper">
+        <img
+          class="qr-code"
+          src="/donation-qr.png"
+          alt="Bitcoin BLAKE2b donation QR code"
         >
-          Install App
-        </button>
-
       </div>
 
+      <div class="donation-label">BITCOIN BLAKE2b ADDRESS</div>
+
+      <div class="donation-address">
+        bc1qvp5tjmzvu5jdlqrfvee6q9azqnsu9dmtume70m
+      </div>
     </section>
 
-    <footer class="footer">
-
-      <p>
-        BLAKE-TO-SHA
-      </p>
-
+    <footer>
+      BLAKE-TO-SHA
     </footer>
 
   </main>
@@ -703,599 +434,182 @@
   <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
 
   <script>
-    const xbtInput =
-      document.getElementById("xbtInput");
+    const usdInput = document.getElementById("usd");
+    const xbtInput = document.getElementById("xbt");
+    const btcInput = document.getElementById("btc");
+    const status = document.getElementById("status");
 
-    const btcInput =
-      document.getElementById("btcInput");
+    let blakePrice = null;
+    let btcPrice = null;
 
-    const usdInput =
-      document.getElementById("usdInput");
+    const socket = io("https://neoxa.exchange/exchange", {
+      transports: ["websocket", "polling"],
+      withCredentials: true,
+      reconnection: true
+    });
 
-    const xbtPriceElement =
-      document.getElementById("xbtPrice");
-
-    const btcPriceElement =
-      document.getElementById("btcPrice");
-
-    const usdPriceElement =
-      document.getElementById("usdPrice");
-
-    const statusElement =
-      document.getElementById("status");
-
-    const installButton =
-      document.getElementById("installButton");
-
-    let xbtUsdPrice = null;
-
-    let btcUsdPrice = null;
-
-    let updating = false;
-
-    let socket = null;
-
-    let deferredInstallPrompt = null;
-
-    function parseNumber(value) {
-
-      if (typeof value !== "string") {
-        return Number(value);
-      }
-
-      const normalized = value
-        .replace(/,/g, "")
-        .replace(/\s/g, "")
-        .trim();
-
-      if (normalized === "") {
-        return 0;
-      }
-
-      const number = Number(normalized);
-
-      return Number.isFinite(number)
-        ? number
-        : 0;
-    }
-
-    function formatXbt(value) {
-
-      if (!Number.isFinite(value)) {
-        return "";
-      }
-
-      return value.toLocaleString("en-US", {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 8
+    socket.on("connect", () => {
+      socket.emit("subscribe", {
+        pair: "BTCB2_USDC"
       });
-    }
+    });
 
-    function formatBtc(value) {
-
-      if (!Number.isFinite(value)) {
-        return "";
-      }
-
-      return value.toLocaleString("en-US", {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 8
-      });
-    }
-
-    function formatUsd(value) {
-
-      if (!Number.isFinite(value)) {
-        return "";
-      }
-
-      return value.toLocaleString("en-US", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-    }
-
-    function formatMarketPrice(value) {
-
-      if (!Number.isFinite(value)) {
-        return "Unavailable";
-      }
-
-      return "$" + value.toLocaleString("en-US", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 8
-      });
-    }
-
-    function updateFromXbt() {
-
+    socket.on("exchange:trades", (data) => {
       if (
-        updating ||
-        !Number.isFinite(xbtUsdPrice) ||
-        !Number.isFinite(btcUsdPrice) ||
-        xbtUsdPrice <= 0 ||
-        btcUsdPrice <= 0
+        data &&
+        data.pair === "BTCB2_USDC" &&
+        Array.isArray(data.trades) &&
+        data.trades.length > 0
       ) {
-        return;
+        const price = Number(data.trades[0].price);
+
+        if (Number.isFinite(price) && price > 0) {
+          blakePrice = price;
+          updateStatus();
+          updateFromActiveInput();
+        }
       }
+    });
 
-      updating = true;
+    async function fetchBitcoinPrice() {
+      try {
+        const response = await fetch(
+          "https://api.coinbase.com/v2/prices/BTC-USD/spot"
+        );
 
-      const xbt =
-        parseNumber(xbtInput.value);
+        if (!response.ok) {
+          throw new Error("BTC price request failed");
+        }
 
-      const usd =
-        xbt * xbtUsdPrice;
+        const data = await response.json();
+        const price = Number(data?.data?.amount);
 
-      const btc =
-        usd / btcUsdPrice;
-
-      btcInput.value =
-        formatBtc(btc);
-
-      usdInput.value =
-        formatUsd(usd);
-
-      updating = false;
-    }
-
-    function updateFromBtc() {
-
-      if (
-        updating ||
-        !Number.isFinite(xbtUsdPrice) ||
-        !Number.isFinite(btcUsdPrice) ||
-        xbtUsdPrice <= 0 ||
-        btcUsdPrice <= 0
-      ) {
-        return;
-      }
-
-      updating = true;
-
-      const btc =
-        parseNumber(btcInput.value);
-
-      const usd =
-        btc * btcUsdPrice;
-
-      const xbt =
-        usd / xbtUsdPrice;
-
-      xbtInput.value =
-        formatXbt(xbt);
-
-      usdInput.value =
-        formatUsd(usd);
-
-      updating = false;
-    }
-
-    function updateFromUsd() {
-
-      if (
-        updating ||
-        !Number.isFinite(xbtUsdPrice) ||
-        !Number.isFinite(btcUsdPrice) ||
-        xbtUsdPrice <= 0 ||
-        btcUsdPrice <= 0
-      ) {
-        return;
-      }
-
-      updating = true;
-
-      const usd =
-        parseNumber(usdInput.value);
-
-      const xbt =
-        usd / xbtUsdPrice;
-
-      const btc =
-        usd / btcUsdPrice;
-
-      xbtInput.value =
-        formatXbt(xbt);
-
-      btcInput.value =
-        formatBtc(btc);
-
-      updating = false;
-    }
-
-    function clearOtherInputs(input) {
-
-      if (input.value !== "") {
-        return;
-      }
-
-      if (input === xbtInput) {
-        btcInput.value = "";
-        usdInput.value = "";
-      }
-
-      if (input === btcInput) {
-        xbtInput.value = "";
-        usdInput.value = "";
-      }
-
-      if (input === usdInput) {
-        xbtInput.value = "";
-        btcInput.value = "";
-      }
-    }
-
-    xbtInput.addEventListener(
-      "input",
-      () => {
-        clearOtherInputs(xbtInput);
-        updateFromXbt();
-      }
-    );
-
-    btcInput.addEventListener(
-      "input",
-      () => {
-        clearOtherInputs(btcInput);
-        updateFromBtc();
-      }
-    );
-
-    usdInput.addEventListener(
-      "input",
-      () => {
-        clearOtherInputs(usdInput);
-        updateFromUsd();
-      }
-    );
-
-    function updateConverter() {
-
-      if (
-        Number.isFinite(xbtUsdPrice) &&
-        Number.isFinite(btcUsdPrice) &&
-        xbtUsdPrice > 0 &&
-        btcUsdPrice > 0
-      ) {
-        updateFromXbt();
+        if (Number.isFinite(price) && price > 0) {
+          btcPrice = price;
+          updateStatus();
+          updateFromActiveInput();
+        }
+      } catch (error) {
+        console.error("Unable to load BTC market price:", error);
       }
     }
 
     function updateStatus() {
-
-      if (
-        Number.isFinite(xbtUsdPrice) &&
-        Number.isFinite(btcUsdPrice)
-      ) {
-        statusElement.textContent =
-          "Market rates loaded";
+      if (blakePrice && btcPrice) {
+        status.textContent = "Market rates loaded";
+      } else {
+        status.textContent = "Loading market rates...";
       }
     }
 
-    function connectNeoxExchange() {
-
-      statusElement.textContent =
-        "Loading market rates...";
-
-      socket = io(
-        "https://neoxa.exchange/exchange",
-        {
-          transports: [
-            "websocket",
-            "polling"
-          ],
-          withCredentials: true,
-          reconnection: true
-        }
-      );
-
-      socket.on(
-        "connect",
-        () => {
-
-          console.log(
-            "Connected to Neoxa"
-          );
-
-          socket.emit(
-            "subscribe",
-            {
-              pair: "BTCB2_USDC"
-            }
-          );
-        }
-      );
-
-      socket.on(
-        "exchange:trades",
-        (data) => {
-
-          if (!data) {
-            return;
-          }
-
-          if (
-            data.pair !==
-            "BTCB2_USDC"
-          ) {
-            return;
-          }
-
-          if (
-            !Array.isArray(
-              data.trades
-            )
-          ) {
-            return;
-          }
-
-          if (
-            data.trades.length === 0
-          ) {
-            return;
-          }
-
-          const price =
-            Number(
-              data.trades[0].price
-            );
-
-          if (
-            !Number.isFinite(price) ||
-            price <= 0
-          ) {
-            return;
-          }
-
-          xbtUsdPrice = price;
-
-          xbtPriceElement.textContent =
-            formatMarketPrice(
-              xbtUsdPrice
-            );
-
-          updateStatus();
-
-          updateConverter();
-        }
-      );
-
-      socket.on(
-        "disconnect",
-        () => {
-
-          console.log(
-            "Disconnected from Neoxa"
-          );
-
-          if (
-            !Number.isFinite(
-              xbtUsdPrice
-            )
-          ) {
-            statusElement.textContent =
-              "Unable to load market rates";
-          }
-        }
-      );
-
-      socket.on(
-        "connect_error",
-        (error) => {
-
-          console.error(
-            "Neoxa connection error:",
-            error
-          );
-
-          if (
-            !Number.isFinite(
-              xbtUsdPrice
-            )
-          ) {
-            statusElement.textContent =
-              "Unable to load market rates";
-          }
-        }
-      );
+    function clearOtherInputs(active) {
+      if (active !== usdInput) usdInput.value = "";
+      if (active !== xbtInput) xbtInput.value = "";
+      if (active !== btcInput) btcInput.value = "";
     }
 
-    async function loadBtcPrice() {
+    function updateFromUSD() {
+      if (!blakePrice || !btcPrice) return;
 
-      try {
+      const usd = Number(usdInput.value);
 
-        const response =
-          await fetch(
-            "https://api.coinbase.com/v2/prices/BTC-USD/spot",
-            {
-              method: "GET",
-              cache: "no-store",
-              headers: {
-                Accept:
-                  "application/json"
-              }
-            }
-          );
-
-        if (!response.ok) {
-          throw new Error(
-            "BTC price request failed: HTTP " +
-            response.status
-          );
-        }
-
-        const data =
-          await response.json();
-
-        const price =
-          Number(
-            data &&
-            data.data &&
-            data.data.amount
-          );
-
-        if (
-          !Number.isFinite(price) ||
-          price <= 0
-        ) {
-          throw new Error(
-            "Invalid BTC price"
-          );
-        }
-
-        btcUsdPrice = price;
-
-        btcPriceElement.textContent =
-          formatMarketPrice(
-            btcUsdPrice
-          );
-
-        usdPriceElement.textContent =
-          "USD";
-
-        updateStatus();
-
-        updateConverter();
-
-      } catch (error) {
-
-        console.error(
-          "BTC price error:",
-          error
-        );
-
-        btcPriceElement.textContent =
-          "Unavailable";
-
-        usdPriceElement.textContent =
-          "USD";
-
-        if (
-          Number.isFinite(
-            xbtUsdPrice
-          )
-        ) {
-          statusElement.textContent =
-            "XBT rate loaded";
-        }
-      }
-    }
-
-    function setupInstallPrompt() {
-
-      window.addEventListener(
-        "beforeinstallprompt",
-        (event) => {
-
-          event.preventDefault();
-
-          deferredInstallPrompt =
-            event;
-
-          installButton.style.display =
-            "inline-block";
-        }
-      );
-
-      installButton.addEventListener(
-        "click",
-        async () => {
-
-          if (
-            deferredInstallPrompt
-          ) {
-
-            deferredInstallPrompt.prompt();
-
-            await deferredInstallPrompt.userChoice;
-
-            deferredInstallPrompt =
-              null;
-
-            installButton.style.display =
-              "none";
-
-            return;
-          }
-        }
-      );
-
-      window.addEventListener(
-        "appinstalled",
-        () => {
-
-          deferredInstallPrompt =
-            null;
-
-          installButton.style.display =
-            "none";
-        }
-      );
-
-      const isIOS =
-        /iPhone|iPad|iPod/i.test(
-          navigator.userAgent
-        );
-
-      const isStandalone =
-        window.navigator.standalone === true ||
-        window.matchMedia(
-          "(display-mode: standalone)"
-        ).matches;
-
-      if (
-        isIOS &&
-        !isStandalone
-      ) {
-        installButton.style.display =
-          "none";
-      }
-    }
-
-    function registerServiceWorker() {
-
-      if (
-        !("serviceWorker" in navigator)
-      ) {
+      if (!Number.isFinite(usd) || usd === 0) {
+        clearOtherInputs(usdInput);
         return;
       }
 
-      window.addEventListener(
-        "load",
-        () => {
+      const xbt = usd / blakePrice;
+      const btc = usd / btcPrice;
 
-          navigator.serviceWorker
-            .register(
-              "/service-worker.js"
-            )
-            .then(
-              () => {
-                console.log(
-                  "Service worker registered"
-                );
-              }
-            )
-            .catch(
-              (error) => {
-                console.log(
-                  "Service worker unavailable:",
-                  error
-                );
-              }
-            );
-        }
-      );
+      xbtInput.value = xbt.toFixed(8);
+      btcInput.value = btc.toFixed(8);
     }
 
-    connectNeoxExchange();
+    function updateFromXBT() {
+      if (!blakePrice || !btcPrice) return;
 
-    loadBtcPrice();
+      const xbt = Number(xbtInput.value);
 
-    setupInstallPrompt();
+      if (!Number.isFinite(xbt) || xbt === 0) {
+        clearOtherInputs(xbtInput);
+        return;
+      }
 
-    registerServiceWorker();
+      const usd = xbt * blakePrice;
+      const btc = usd / btcPrice;
+
+      usdInput.value = usd.toFixed(2);
+      btcInput.value = btc.toFixed(8);
+    }
+
+    function updateFromBTC() {
+      if (!blakePrice || !btcPrice) return;
+
+      const btc = Number(btcInput.value);
+
+      if (!Number.isFinite(btc) || btc === 0) {
+        clearOtherInputs(btcInput);
+        return;
+      }
+
+      const usd = btc * btcPrice;
+      const xbt = usd / blakePrice;
+
+      usdInput.value = usd.toFixed(2);
+      xbtInput.value = xbt.toFixed(8);
+    }
+
+    function updateFromActiveInput() {
+      if (document.activeElement === usdInput) {
+        updateFromUSD();
+      } else if (document.activeElement === xbtInput) {
+        updateFromXBT();
+      } else if (document.activeElement === btcInput) {
+        updateFromBTC();
+      }
+    }
+
+    usdInput.addEventListener("input", updateFromUSD);
+    xbtInput.addEventListener("input", updateFromXBT);
+    btcInput.addEventListener("input", updateFromBTC);
+
+    fetchBitcoinPrice();
+
+    setInterval(fetchBitcoinPrice, 30000);
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/service-worker.js")
+          .catch(error => {
+            console.error("Service worker registration failed:", error);
+          });
+      });
+    }
+
+    let deferredPrompt = null;
+    const installButton = document.getElementById("installButton");
+
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      deferredPrompt = event;
+      installButton.style.display = "inline-block";
+    });
+
+    installButton.addEventListener("click", async () => {
+      if (!deferredPrompt) return;
+
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+
+      deferredPrompt = null;
+      installButton.style.display = "none";
+    });
+
+    window.addEventListener("appinstalled", () => {
+      deferredPrompt = null;
+      installButton.style.display = "none";
+    });
   </script>
-
 </body>
 </html>
 ```
