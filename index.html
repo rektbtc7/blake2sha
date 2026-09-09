@@ -120,7 +120,7 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 20px;
-      margin-bottom: 22px;
+      margin-bottom: 18px;
     }
 
     .currency-code {
@@ -154,7 +154,7 @@
       justify-content: space-between;
       align-items: baseline;
       gap: 20px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       padding-bottom: 12px;
       border-bottom: 1px solid #333333;
     }
@@ -172,11 +172,47 @@
       text-align: right;
     }
 
+    /*
+      INPUT AREA
+
+      The input is intentionally separated from the market information
+      and has a visible border so it is immediately clear where typing
+      is expected.
+    */
+
+    .input-wrapper {
+      position: relative;
+      width: 100%;
+      border: 1px solid #555555;
+      background: #050505;
+      transition:
+        border-color 0.15s ease,
+        background 0.15s ease;
+    }
+
+    .input-wrapper::before {
+      content: "TYPE AMOUNT";
+      position: absolute;
+      top: 8px;
+      left: 10px;
+      font-size: 8px;
+      line-height: 1;
+      letter-spacing: 0.14em;
+      color: #666666;
+      pointer-events: none;
+    }
+
+    .input-wrapper:focus-within {
+      border-color: #ffffff;
+      background: #0d0d0d;
+    }
+
     .amount-input {
       display: block;
       width: 100%;
+      height: 76px;
       margin: 0;
-      padding: 8px 0 2px;
+      padding: 22px 10px 7px;
       border: 0;
       outline: 0;
       background: transparent;
@@ -199,6 +235,11 @@
       color: #000000;
     }
 
+    .amount-input::placeholder {
+      color: #444444;
+      opacity: 1;
+    }
+
     .connector {
       height: 52px;
       display: flex;
@@ -211,9 +252,19 @@
       color: #666666;
     }
 
+    .rate-note {
+      margin-top: 14px;
+      text-align: center;
+      font-size: 9px;
+      line-height: 1.5;
+      letter-spacing: 0.08em;
+      color: #666666;
+      text-transform: uppercase;
+    }
+
     .status {
       min-height: 18px;
-      margin-top: 22px;
+      margin-top: 10px;
       text-align: center;
       font-size: 9px;
       line-height: 1.4;
@@ -297,39 +348,6 @@
       font-weight: 400;
     }
 
-    .donation-section {
-      width: 100%;
-      margin-top: 38px;
-      padding-top: 18px;
-      border-top: 1px solid #222222;
-      text-align: center;
-    }
-
-    .donation-text {
-      color: #666666;
-      font-size: 9px;
-      line-height: 1.6;
-      letter-spacing: 0.04em;
-      margin-bottom: 10px;
-    }
-
-    .donation-address {
-      display: block;
-      width: 100%;
-      color: #777777;
-      font-size: 9px;
-      line-height: 1.5;
-      word-break: break-all;
-    }
-
-    .qr-code {
-      display: block;
-      width: 180px;
-      height: 180px;
-      margin: 16px auto 0;
-      object-fit: contain;
-    }
-
     .footer {
       margin-top: 38px;
       padding-top: 18px;
@@ -380,20 +398,16 @@
       }
 
       .amount-input {
+        height: 70px;
         font-size: 29px;
+      }
+
+      .input-wrapper::before {
+        font-size: 7px;
       }
 
       .connector {
         height: 44px;
-      }
-
-      .instructions {
-        padding: 16px;
-      }
-
-      .qr-code {
-        width: 160px;
-        height: 160px;
       }
     }
   </style>
@@ -438,21 +452,26 @@
           <span>VALUE</span>
 
           <strong id="usdPrice">
-            Loading...
+            USD
           </strong>
 
         </div>
 
-        <input
-          id="usdInput"
-          class="amount-input"
-          type="text"
-          inputmode="decimal"
-          autocomplete="off"
-          spellcheck="false"
-          value=""
-          aria-label="USD amount"
-        >
+        <div class="input-wrapper">
+
+          <input
+            id="usdInput"
+            class="amount-input"
+            type="text"
+            inputmode="decimal"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="0.00"
+            value=""
+            aria-label="USD amount"
+          >
+
+        </div>
 
       </div>
 
@@ -490,16 +509,21 @@
 
         </div>
 
-        <input
-          id="xbtInput"
-          class="amount-input"
-          type="text"
-          inputmode="decimal"
-          autocomplete="off"
-          spellcheck="false"
-          value=""
-          aria-label="XBT amount"
-        >
+        <div class="input-wrapper">
+
+          <input
+            id="xbtInput"
+            class="amount-input"
+            type="text"
+            inputmode="decimal"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="0.00000000"
+            value=""
+            aria-label="XBT amount"
+          >
+
+        </div>
 
       </div>
 
@@ -537,20 +561,29 @@
 
         </div>
 
-        <input
-          id="btcInput"
-          class="amount-input"
-          type="text"
-          inputmode="decimal"
-          autocomplete="off"
-          spellcheck="false"
-          value=""
-          aria-label="BTC amount"
-        >
+        <div class="input-wrapper">
+
+          <input
+            id="btcInput"
+            class="amount-input"
+            type="text"
+            inputmode="decimal"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="0.00000000"
+            value=""
+            aria-label="BTC amount"
+          >
+
+        </div>
 
       </div>
 
     </section>
+
+    <div class="rate-note">
+      Market rates refresh automatically when this page loads.
+    </div>
 
     <div
       id="status"
@@ -611,33 +644,11 @@
 
     </section>
 
-    <section class="donation-section">
-
-      <div class="donation-text">
-        Support this app.
-      </div>
-
-      <div class="donation-address">
-        Bitcoin donation address
-      </div>
-
-      <div class="donation-address">
-        Add your donation address here
-      </div>
-
-      <img
-        class="qr-code"
-        src="/donation-qr.png"
-        alt="Bitcoin donation QR code"
-      >
-
-    </section>
-
     <footer class="footer">
 
       <p>
-        Rates are updated when the page loads.
-        Reload the page to refresh the current market rates.
+        BLAKE-TO-SHA converts between Bitcoin BLAKE2b,
+        Bitcoin SHA256 and United States Dollars.
       </p>
 
     </footer>
@@ -675,6 +686,7 @@
       document.getElementById("instructions");
 
     let xbtUsdPrice = null;
+
     let btcUsdPrice = null;
 
     let updating = false;
