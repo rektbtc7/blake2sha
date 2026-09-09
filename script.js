@@ -162,17 +162,30 @@ usdInput.addEventListener("input", () => {
 });
 
 function extractPrice(data) {
-  if (!data) {
+  if (data === null || data === undefined) {
     return null;
   }
 
   if (typeof data === "number") {
-    return Number.isFinite(data) ? data : null;
+    return Number.isFinite(data) && data > 0 ? data : null;
   }
 
   if (typeof data === "string") {
     const value = Number(data);
-    return Number.isFinite(value) ? value : null;
+
+    return Number.isFinite(value) && value > 0 ? value : null;
+  }
+
+  if (Array.isArray(data)) {
+    for (const item of data) {
+      const value = extractPrice(item);
+
+      if (Number.isFinite(value) && value > 0) {
+        return value;
+      }
+    }
+
+    return null;
   }
 
   const possibleFields = [
@@ -180,64 +193,101 @@ function extractPrice(data) {
     "last",
     "lastPrice",
     "close",
-    "value"
+    "value",
+    "usd",
+    "usdPrice",
+    "priceUsd",
+    "price_usd"
   ];
 
   for (const field of possibleFields) {
     if (data[field] !== undefined) {
       const value = Number(data[field]);
 
-      if (Number.isFinite(value)) {
+      if (Number.isFinite(value) && value > 0) {
         return value;
       }
     }
   }
 
-  if (data.data) {
-    return extractPrice(data.data);
+  if (data.data !== undefined) {
+    const value = extractPrice(data.data);
+
+    if (Number.isFinite(value) && value > 0) {
+      return value;
+    }
+  }
+
+  if (data.result !== undefined) {
+    const value = extractPrice(data.result);
+
+    if (Number.isFinite(value) && value > 0) {
+      return value;
+    }
   }
 
   return null;
+}
+
+async function fetchJson(url) {
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      Accept: "application/json"
+    },
+    cache: "no-store"
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      `Market API returned HTTP ${response.status}`
+    );
+  }
+
+  return response.json();
 }
 
 async function loadPrices() {
   statusElement.textContent = "Loading market rates...";
 
   try {
-    const response = await fetch("/api/prices", {
-      method: "GET",
-      cache: "no-store"
-    });
+    const [pricesData, xbtData] = await Promise.all([
+      fetchJson("https://neoxa.exchange/api/prices"),
+      fetchJson(
+        "https://neoxa.exchange/api/exchange/ticker/BTCB2_USDC"
+      )
+    ]);
 
-    if (!response.ok) {
-      throw new Error("Price request failed");
-    }
+    console.log("NeoxEX /api/prices:", pricesData);
+    console.log("NeoxEX BTCB2_USDC:", xbtData);
 
-    const data = await response.json();
-
-    const xbtPrice = Number(data.xbtUsd);
-    const btcPrice = Number(data.btcUsd);
+    let btcPrice = extractPrice(pricesData);
+    let xbtPrice = extractPrice(xbtData);
 
     if (!Number.isFinite(xbtPrice) || xbtPrice <= 0) {
-      throw new Error("Invalid XBT price");
+      throw new Error("Invalid XBT price returned by NeoxEX");
     }
 
     if (!Number.isFinite(btcPrice) || btcPrice <= 0) {
-      throw new Error("Invalid BTC price");
+      throw new Error("Invalid BTC price returned by NeoxEX");
     }
 
     xbtUsdPrice = xbtPrice;
     btcUsdPrice = btcPrice;
 
-    xbtPriceElement.textContent = formatMarketPrice(xbtUsdPrice);
-    btcPriceElement.textContent = formatMarketPrice(btcUsdPrice);
+    xbtPriceElement.textContent =
+      formatMarketPrice(xbtUsdPrice);
+
+    btcPriceElement.textContent =
+      formatMarketPrice(btcUsdPrice);
+
     usdPriceElement.textContent = "USD";
 
     statusElement.textContent = "Market rates loaded";
 
     updateFromXbt();
   } catch (error) {
-    console.error(error);
+    console.error("Market rates error:", error);
 
     xbtPriceElement.textContent = "Unavailable";
     btcPriceElement.textContent = "Unavailable";
