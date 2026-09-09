@@ -32,7 +32,7 @@
 
   <meta
     name="apple-mobile-web-app-title"
-    content="BLAKE2 SHA"
+    content="BLAKE-TO-SHA"
   >
 
   <link
@@ -45,7 +45,7 @@
     href="/icon.png"
   >
 
-  <title>BLAKE2 SHA</title>
+  <title>BLAKE-TO-SHA</title>
 
   <style>
     * {
@@ -406,12 +406,61 @@
     <header class="header">
       <div class="bitcoin-symbol">₿</div>
 
-      <h1>BLAKE2 SHA</h1>
+      <h1>BLAKE-TO-SHA</h1>
 
       <p>CONVERTER</p>
     </header>
 
     <section class="converter">
+
+      <!-- USD -->
+
+      <div class="currency-card">
+
+        <div class="currency-header">
+
+          <div>
+            <span class="currency-code">USD</span>
+
+            <span class="currency-name">
+              UNITED STATES DOLLAR
+            </span>
+          </div>
+
+          <span class="source">
+            MARKET PRICE
+          </span>
+
+        </div>
+
+        <div class="market-price">
+
+          <span>VALUE</span>
+
+          <strong id="usdPrice">
+            Loading...
+          </strong>
+
+        </div>
+
+        <input
+          id="usdInput"
+          class="amount-input"
+          type="text"
+          inputmode="decimal"
+          autocomplete="off"
+          spellcheck="false"
+          value=""
+          aria-label="USD amount"
+        >
+
+      </div>
+
+      <div class="connector">
+        <span>↓</span>
+      </div>
+
+      <!-- XBT -->
 
       <div class="currency-card">
 
@@ -448,7 +497,7 @@
           inputmode="decimal"
           autocomplete="off"
           spellcheck="false"
-          value="1"
+          value=""
           aria-label="XBT amount"
         >
 
@@ -457,6 +506,8 @@
       <div class="connector">
         <span>↓</span>
       </div>
+
+      <!-- BTC -->
 
       <div class="currency-card">
 
@@ -499,51 +550,6 @@
 
       </div>
 
-      <div class="connector">
-        <span>↓</span>
-      </div>
-
-      <div class="currency-card">
-
-        <div class="currency-header">
-
-          <div>
-            <span class="currency-code">USD</span>
-
-            <span class="currency-name">
-              UNITED STATES DOLLAR
-            </span>
-          </div>
-
-          <span class="source">
-            CALCULATED
-          </span>
-
-        </div>
-
-        <div class="market-price">
-
-          <span>VALUE</span>
-
-          <strong id="usdPrice">
-            Loading...
-          </strong>
-
-        </div>
-
-        <input
-          id="usdInput"
-          class="amount-input"
-          type="text"
-          inputmode="decimal"
-          autocomplete="off"
-          spellcheck="false"
-          value=""
-          aria-label="USD amount"
-        >
-
-      </div>
-
     </section>
 
     <div
@@ -568,10 +574,10 @@
         class="instructions"
       >
 
-        <h2>BLAKE2 SHA</h2>
+        <h2>BLAKE-TO-SHA</h2>
 
         <p>
-          BLAKE2 SHA can be added to your device as a
+          BLAKE-TO-SHA can be added to your device as a
           Progressive Web App for quick access.
         </p>
 
@@ -641,9 +647,14 @@
   <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
 
   <script>
-    const xbtInput = document.getElementById("xbtInput");
-    const btcInput = document.getElementById("btcInput");
-    const usdInput = document.getElementById("usdInput");
+    const xbtInput =
+      document.getElementById("xbtInput");
+
+    const btcInput =
+      document.getElementById("btcInput");
+
+    const usdInput =
+      document.getElementById("usdInput");
 
     const xbtPriceElement =
       document.getElementById("xbtPrice");
