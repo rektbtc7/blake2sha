@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -320,161 +319,184 @@
       }
     }
   </style>
-
 </head>
 
 <body>
   <main class="container">
 
-```
-<header>
-  <h1>BLAKE-TO-SHA</h1>
-  <div class="subtitle">Bitcoin BLAKE2b · SHA256 · USD</div>
-</header>
+    <header>
+      <h1>BLAKE-TO-SHA</h1>
+      <div class="subtitle">Bitcoin BLAKE2b · SHA256 · USD · EUR</div>
+    </header>
 
-<section class="how-to-use">
-  <div class="how-to-title">HOW TO USE</div>
-  <p class="how-to-text">
-    Enter a value in any box. The other two values are calculated automatically.
-  </p>
-</section>
+    <section class="how-to-use">
+      <div class="how-to-title">HOW TO USE</div>
+      <p class="how-to-text">
+        Enter a value in any box. The other values are calculated automatically.
+      </p>
+    </section>
 
-<section class="converter">
+    <section class="converter">
 
-  <div class="card">
-    <div class="card-header">
-      <span class="label">USD</span>
+      <div class="card">
+        <div class="card-header">
+          <span class="label">USD</span>
+        </div>
+
+        <div class="input-wrapper">
+          <input
+            id="usd"
+            type="number"
+            inputmode="decimal"
+            placeholder="0.00"
+            step="any"
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="unit">UNITED STATES DOLLARS</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="label">EUR</span>
+          <span class="type">CALCULATED</span>
+        </div>
+
+        <div class="input-wrapper">
+          <input
+            id="eur"
+            type="number"
+            inputmode="decimal"
+            placeholder="0.00"
+            step="any"
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="unit">EUROS</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="label">XBT</span>
+          <span class="type">CALCULATED</span>
+        </div>
+
+        <div class="input-wrapper">
+          <input
+            id="xbt"
+            type="number"
+            inputmode="decimal"
+            placeholder="0.00000000"
+            step="any"
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="unit">BITCOIN BLAKE</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="label">BTC</span>
+          <span class="type">CALCULATED</span>
+        </div>
+
+        <div class="input-wrapper">
+          <input
+            id="btc"
+            type="number"
+            inputmode="decimal"
+            placeholder="0.00000000"
+            step="any"
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="unit">BITCOIN SHA256</div>
+      </div>
+
+    </section>
+
+    <div id="status" class="status">
+      Loading market rates...
     </div>
 
-    <div class="input-wrapper">
-      <input
-        id="usd"
-        type="number"
-        inputmode="decimal"
-        placeholder="0.00"
-        step="any"
-        autocomplete="off"
-      >
+    <div class="refresh-note">
+      MARKET RATES REFRESH AUTOMATICALLY
     </div>
 
-    <div class="unit">UNITED STATES DOLLARS</div>
-  </div>
-
-  <div class="card">
-    <div class="card-header">
-      <span class="label">XBT</span>
-      <span class="type">CALCULATED</span>
-    </div>
-
-    <div class="input-wrapper">
-      <input
-        id="xbt"
-        type="number"
-        inputmode="decimal"
-        placeholder="0.00000000"
-        step="any"
-        autocomplete="off"
-      >
-    </div>
-
-    <div class="unit">BITCOIN BLAKE</div>
-  </div>
-
-  <div class="card">
-    <div class="card-header">
-      <span class="label">BTC</span>
-      <span class="type">CALCULATED</span>
-    </div>
-
-    <div class="input-wrapper">
-      <input
-        id="btc"
-        type="number"
-        inputmode="decimal"
-        placeholder="0.00000000"
-        step="any"
-        autocomplete="off"
-      >
-    </div>
-
-    <div class="unit">BITCOIN SHA256</div>
-  </div>
-
-</section>
-
-<div id="status" class="status">
-  Loading market rates...
-</div>
-
-<div class="refresh-note">
-  MARKET RATES REFRESH AUTOMATICALLY
-</div>
-
-<p class="description">
-  BLAKE-TO-SHA converts between Bitcoin BLAKE2b, Bitcoin SHA256 and United States Dollars.
-</p>
-
-<details class="pwa-box">
-  <summary>INSTALL BLAKE-TO-SHA</summary>
-
-  <div class="pwa-content">
-    <p class="pwa-text">
-      On iPhone or iPad, open BLAKE-TO-SHA in Safari, tap the Share
-      button, then select "Add to Home Screen".
-      <br><br>
-      On Android, open the browser menu and select
-      "Install app" or "Add to Home screen".
+    <p class="description">
+      BLAKE-TO-SHA converts between Bitcoin BLAKE2b, Bitcoin SHA256,
+      United States Dollars and Euros.
     </p>
 
-    <button id="installButton">INSTALL APP</button>
-  </div>
-</details>
+    <details class="pwa-box">
+      <summary>INSTALL BLAKE-TO-SHA</summary>
 
-<section class="donations">
-  <h2 class="donations-title">DONATE</h2>
+      <div class="pwa-content">
+        <p class="pwa-text">
+          On iPhone or iPad, open BLAKE-TO-SHA in Safari, tap the Share
+          button, then select "Add to Home Screen".
+          <br><br>
+          On Android, open the browser menu and select
+          "Install app" or "Add to Home screen".
+        </p>
 
-  <p class="donations-text">
-    If BLAKE-TO-SHA is useful to you, you can support the project
-    with a Bitcoin BLAKE2b donation.
-  </p>
+        <button id="installButton">INSTALL APP</button>
+      </div>
+    </details>
 
-  <div class="qr-wrapper">
-    <img
-      class="qr-code"
-      src="/donation-qr.png"
-      alt="Bitcoin BLAKE2b donation QR code"
-    >
-  </div>
+    <section class="donations">
+      <h2 class="donations-title">DONATE</h2>
 
-  <div class="donation-label">BITCOIN BLAKE2b ADDRESS</div>
+      <p class="donations-text">
+        If BLAKE-TO-SHA is useful to you, you can support the project
+        with a Bitcoin BLAKE2b donation.
+      </p>
 
-  <div class="donation-address">
-    bc1qxrfkhe3sdvzcxwg3vlp8t85c7243afm9yse7av
-  </div>
-</section>
+      <div class="qr-wrapper">
+        <img
+          class="qr-code"
+          src="/donation-qr.png"
+          alt="Bitcoin BLAKE2b donation QR code"
+        >
+      </div>
 
-<footer>
-  BLAKE-TO-SHA
-</footer>
-```
+      <div class="donation-label">BITCOIN BLAKE2b ADDRESS</div>
+
+      <div class="donation-address">
+        bc1qxrfkhe3sdvzcxwg3vlp8t85c7243afm9yse7av
+      </div>
+    </section>
+
+    <footer>
+      BLAKE-TO-SHA
+    </footer>
 
   </main>
 
   <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
 
   <script>
-    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    window.va = window.va || function () {
+      (window.vaq = window.vaq || []).push(arguments);
+    };
   </script>
+
   <script defer src="/_vercel/insights/script.js"></script>
 
   <script>
     const usdInput = document.getElementById("usd");
+    const eurInput = document.getElementById("eur");
     const xbtInput = document.getElementById("xbt");
     const btcInput = document.getElementById("btc");
     const status = document.getElementById("status");
 
     let blakePrice = null;
     let btcPrice = null;
+    let usdToEur = null;
 
     const socket = io("https://neoxa.exchange/exchange", {
       transports: ["websocket", "polling"],
@@ -528,8 +550,31 @@
       }
     }
 
+    async function fetchEuroRate() {
+      try {
+        const response = await fetch(
+          "https://api.frankfurter.dev/v2/rate/usd/eur"
+        );
+
+        if (!response.ok) {
+          throw new Error("EUR exchange rate request failed");
+        }
+
+        const data = await response.json();
+        const rate = Number(data?.rate);
+
+        if (Number.isFinite(rate) && rate > 0) {
+          usdToEur = rate;
+          updateStatus();
+          updateFromActiveInput();
+        }
+      } catch (error) {
+        console.error("Unable to load EUR exchange rate:", error);
+      }
+    }
+
     function updateStatus() {
-      if (blakePrice && btcPrice) {
+      if (blakePrice && btcPrice && usdToEur) {
         status.textContent = "Market rates loaded";
       } else {
         status.textContent = "Loading market rates...";
@@ -538,12 +583,13 @@
 
     function clearOtherInputs(active) {
       if (active !== usdInput) usdInput.value = "";
+      if (active !== eurInput) eurInput.value = "";
       if (active !== xbtInput) xbtInput.value = "";
       if (active !== btcInput) btcInput.value = "";
     }
 
     function updateFromUSD() {
-      if (!blakePrice || !btcPrice) return;
+      if (!blakePrice || !btcPrice || !usdToEur) return;
 
       const usd = Number(usdInput.value);
 
@@ -552,15 +598,36 @@
         return;
       }
 
+      const eur = usd * usdToEur;
       const xbt = usd / blakePrice;
       const btc = usd / btcPrice;
 
+      eurInput.value = eur.toFixed(2);
+      xbtInput.value = xbt.toFixed(8);
+      btcInput.value = btc.toFixed(8);
+    }
+
+    function updateFromEUR() {
+      if (!blakePrice || !btcPrice || !usdToEur) return;
+
+      const eur = Number(eurInput.value);
+
+      if (!Number.isFinite(eur) || eur === 0) {
+        clearOtherInputs(eurInput);
+        return;
+      }
+
+      const usd = eur / usdToEur;
+      const xbt = usd / blakePrice;
+      const btc = usd / btcPrice;
+
+      usdInput.value = usd.toFixed(2);
       xbtInput.value = xbt.toFixed(8);
       btcInput.value = btc.toFixed(8);
     }
 
     function updateFromXBT() {
-      if (!blakePrice || !btcPrice) return;
+      if (!blakePrice || !btcPrice || !usdToEur) return;
 
       const xbt = Number(xbtInput.value);
 
@@ -570,14 +637,16 @@
       }
 
       const usd = xbt * blakePrice;
+      const eur = usd * usdToEur;
       const btc = usd / btcPrice;
 
       usdInput.value = usd.toFixed(2);
+      eurInput.value = eur.toFixed(2);
       btcInput.value = btc.toFixed(8);
     }
 
     function updateFromBTC() {
-      if (!blakePrice || !btcPrice) return;
+      if (!blakePrice || !btcPrice || !usdToEur) return;
 
       const btc = Number(btcInput.value);
 
@@ -587,15 +656,19 @@
       }
 
       const usd = btc * btcPrice;
+      const eur = usd * usdToEur;
       const xbt = usd / blakePrice;
 
       usdInput.value = usd.toFixed(2);
+      eurInput.value = eur.toFixed(2);
       xbtInput.value = xbt.toFixed(8);
     }
 
     function updateFromActiveInput() {
       if (document.activeElement === usdInput) {
         updateFromUSD();
+      } else if (document.activeElement === eurInput) {
+        updateFromEUR();
       } else if (document.activeElement === xbtInput) {
         updateFromXBT();
       } else if (document.activeElement === btcInput) {
@@ -604,12 +677,15 @@
     }
 
     usdInput.addEventListener("input", updateFromUSD);
+    eurInput.addEventListener("input", updateFromEUR);
     xbtInput.addEventListener("input", updateFromXBT);
     btcInput.addEventListener("input", updateFromBTC);
 
     fetchBitcoinPrice();
+    fetchEuroRate();
 
     setInterval(fetchBitcoinPrice, 30000);
+    setInterval(fetchEuroRate, 3600000);
 
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
@@ -647,4 +723,3 @@
 
 </body>
 </html>
-```
