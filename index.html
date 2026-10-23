@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#10100f">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="BLAKE-TO-SHA">
@@ -11,10 +12,25 @@
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" type="image/png" href="/icon.png">
   <link rel="apple-touch-icon" href="/icon.png">
+  <link rel="stylesheet" href="/style.css">
 
   <title>BLAKE-TO-SHA</title>
 
   <style>
+    :root {
+      color-scheme: dark;
+      --bg: #10100f;
+      --panel: #191816;
+      --panel-raised: #201e1a;
+      --line: #39352e;
+      --text: #f3eee4;
+      --muted: #a49b8d;
+      --subtle: #70685d;
+      --accent: #c83b3b;
+      --accent-light: #f07878;
+      --input: #11110f;
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -24,8 +40,8 @@
       margin: 0;
       padding: 0;
       min-height: 100%;
-      background: #000;
-      color: #fff;
+      background: var(--bg);
+      color: var(--text);
       font-family: Arial, Helvetica, sans-serif;
     }
 
@@ -54,7 +70,7 @@
 
     .subtitle {
       margin-top: 10px;
-      color: #888;
+      color: var(--muted);
       font-size: 13px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -70,11 +86,12 @@
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.12em;
+      color: var(--accent-light);
     }
 
     .how-to-text {
       margin: 0;
-      color: #777;
+      color: var(--muted);
       font-size: 12px;
       line-height: 1.6;
     }
@@ -86,9 +103,15 @@
     }
 
     .card {
-      border: 1px solid #333;
+      border: 1px solid var(--line);
+      border-radius: 8px;
       padding: 18px;
-      background: #050505;
+      background: var(--panel);
+      transition: border-color 0.15s ease;
+    }
+
+    .card:focus-within {
+      border-color: var(--accent);
     }
 
     .card-header {
@@ -105,39 +128,42 @@
     }
 
     .type {
-      color: #777;
+      color: var(--accent-light);
       font-size: 10px;
       letter-spacing: 0.1em;
     }
 
     .input-wrapper {
-      border: 1px solid #444;
-      background: #000;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      background: var(--input);
       transition: border-color 0.15s ease;
     }
 
     .input-wrapper:focus-within {
-      border-color: #fff;
+      border-color: var(--accent);
     }
 
     input {
+      display: block;
       width: 100%;
       border: 0;
       outline: 0;
+      border-radius: 5px;
       background: transparent;
-      color: #fff;
+      color: var(--text);
       padding: 14px;
       font-size: 18px;
       font-family: inherit;
     }
 
     input::placeholder {
-      color: #555;
+      color: var(--subtle);
     }
 
     .unit {
       margin-top: 8px;
-      color: #666;
+      color: var(--muted);
       font-size: 11px;
       letter-spacing: 0.05em;
     }
@@ -145,7 +171,7 @@
     .status {
       margin-top: 20px;
       text-align: center;
-      color: #888;
+      color: var(--accent-light);
       font-size: 11px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -154,14 +180,14 @@
     .refresh-note {
       margin-top: 14px;
       text-align: center;
-      color: #555;
+      color: var(--subtle);
       font-size: 10px;
       letter-spacing: 0.06em;
     }
 
     .description {
       margin: 12px 0 0;
-      color: #777;
+      color: var(--muted);
       font-size: 12px;
       line-height: 1.6;
       text-align: center;
@@ -169,8 +195,9 @@
 
     .pwa-box {
       margin-top: 28px;
-      border: 1px solid #333;
-      background: #050505;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
     }
 
     .pwa-box summary {
@@ -190,7 +217,7 @@
     .pwa-box summary::after {
       content: "+";
       float: right;
-      color: #777;
+      color: var(--accent-light);
       font-size: 14px;
     }
 
@@ -199,14 +226,14 @@
     }
 
     .pwa-content {
-      border-top: 1px solid #222;
+      border-top: 1px solid var(--line);
       padding: 18px;
       text-align: center;
     }
 
     .pwa-text {
       margin: 0;
-      color: #666;
+      color: var(--muted);
       font-size: 11px;
       line-height: 1.7;
     }
@@ -215,8 +242,9 @@
       display: none;
       margin-top: 14px;
       padding: 10px 16px;
-      border: 1px solid #fff;
-      background: #000;
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      background: var(--accent);
       color: #fff;
       font-family: inherit;
       font-size: 10px;
@@ -226,16 +254,17 @@
     }
 
     #installButton:hover {
-      background: #fff;
-      color: #000;
+      background: var(--accent-light);
+      border-color: var(--accent-light);
     }
 
     .donations {
       margin-top: 32px;
-      border: 1px solid #333;
+      border: 1px solid var(--line);
+      border-radius: 8px;
       padding: 22px 18px;
       text-align: center;
-      background: #050505;
+      background: var(--panel);
     }
 
     .donations-title {
@@ -247,7 +276,7 @@
 
     .donations-text {
       margin: 0 0 20px;
-      color: #777;
+      color: var(--muted);
       font-size: 11px;
       line-height: 1.6;
     }
@@ -265,20 +294,22 @@
       object-fit: contain;
       background: #fff;
       padding: 8px;
+      border-radius: 4px;
     }
 
     .donation-label {
       margin-bottom: 8px;
-      color: #555;
+      color: var(--muted);
       font-size: 9px;
       letter-spacing: 0.1em;
     }
 
     .donation-address {
-      border: 1px solid #444;
+      border: 1px solid var(--line);
+      border-radius: 5px;
       padding: 14px;
-      background: #000;
-      color: #fff;
+      background: var(--input);
+      color: var(--text);
       font-family: monospace;
       font-size: 11px;
       line-height: 1.6;
@@ -289,9 +320,9 @@
     footer {
       margin-top: 32px;
       padding-top: 18px;
-      border-top: 1px solid #1c1c1c;
+      border-top: 1px solid var(--line);
       text-align: center;
-      color: #444;
+      color: var(--subtle);
       font-size: 10px;
       letter-spacing: 0.08em;
     }
@@ -323,7 +354,6 @@
 
 <body>
   <main class="container">
-
     <header>
       <h1>BLAKE-TO-SHA</h1>
       <div class="subtitle">Bitcoin BLAKE2b · SHA256 · USD · EUR</div>
@@ -337,23 +367,14 @@
     </section>
 
     <section class="converter">
-
       <div class="card">
         <div class="card-header">
           <span class="label">USD</span>
         </div>
-
         <div class="input-wrapper">
-          <input
-            id="usd"
-            type="number"
-            inputmode="decimal"
-            placeholder="0.00"
-            step="any"
-            autocomplete="off"
-          >
+          <input id="usd" type="number" inputmode="decimal"
+            placeholder="0.00" step="any" autocomplete="off">
         </div>
-
         <div class="unit">UNITED STATES DOLLARS</div>
       </div>
 
@@ -362,18 +383,10 @@
           <span class="label">EUR</span>
           <span class="type">CALCULATED</span>
         </div>
-
         <div class="input-wrapper">
-          <input
-            id="eur"
-            type="number"
-            inputmode="decimal"
-            placeholder="0.00"
-            step="any"
-            autocomplete="off"
-          >
+          <input id="eur" type="number" inputmode="decimal"
+            placeholder="0.00" step="any" autocomplete="off">
         </div>
-
         <div class="unit">EUROS</div>
       </div>
 
@@ -382,18 +395,10 @@
           <span class="label">XBT</span>
           <span class="type">CALCULATED</span>
         </div>
-
         <div class="input-wrapper">
-          <input
-            id="xbt"
-            type="number"
-            inputmode="decimal"
-            placeholder="0.00000000"
-            step="any"
-            autocomplete="off"
-          >
+          <input id="xbt" type="number" inputmode="decimal"
+            placeholder="0.00000000" step="any" autocomplete="off">
         </div>
-
         <div class="unit">BITCOIN BLAKE</div>
       </div>
 
@@ -402,30 +407,17 @@
           <span class="label">BTC</span>
           <span class="type">CALCULATED</span>
         </div>
-
         <div class="input-wrapper">
-          <input
-            id="btc"
-            type="number"
-            inputmode="decimal"
-            placeholder="0.00000000"
-            step="any"
-            autocomplete="off"
-          >
+          <input id="btc" type="number" inputmode="decimal"
+            placeholder="0.00000000" step="any" autocomplete="off">
         </div>
-
         <div class="unit">BITCOIN SHA256</div>
       </div>
-
     </section>
 
-    <div id="status" class="status">
-      Loading market rates...
-    </div>
+    <div id="status" class="status">Loading market rates...</div>
 
-    <div class="refresh-note">
-      MARKET RATES REFRESH AUTOMATICALLY
-    </div>
+    <div class="refresh-note">MARKET RATES REFRESH AUTOMATICALLY</div>
 
     <p class="description">
       BLAKE-TO-SHA converts between Bitcoin BLAKE2b, Bitcoin SHA256,
@@ -434,47 +426,35 @@
 
     <details class="pwa-box">
       <summary>INSTALL BLAKE-TO-SHA</summary>
-
       <div class="pwa-content">
         <p class="pwa-text">
           On iPhone or iPad, open BLAKE-TO-SHA in Safari, tap the Share
-          button, then select "Add to Home Screen".
+          button, then select "Add to Home Screen."
           <br><br>
           On Android, open the browser menu and select
-          "Install app" or "Add to Home screen".
+          "Install app" or "Add to Home screen."
         </p>
-
         <button id="installButton">INSTALL APP</button>
       </div>
     </details>
 
     <section class="donations">
       <h2 class="donations-title">DONATE</h2>
-
       <p class="donations-text">
         If BLAKE-TO-SHA is useful to you, you can support the project
         with a Bitcoin BLAKE2b donation.
       </p>
-
       <div class="qr-wrapper">
-        <img
-          class="qr-code"
-          src="/donation-qr.png"
-          alt="Bitcoin BLAKE2b donation QR code"
-        >
+        <img class="qr-code" src="/donation-qr.png"
+          alt="Bitcoin BLAKE2b donation QR code">
       </div>
-
       <div class="donation-label">BITCOIN BLAKE2b ADDRESS</div>
-
       <div class="donation-address">
         bc1qxrfkhe3sdvzcxwg3vlp8t85c7243afm9yse7av
       </div>
     </section>
 
-    <footer>
-      BLAKE-TO-SHA
-    </footer>
-
+    <footer>BLAKE-TO-SHA</footer>
   </main>
 
   <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
@@ -484,7 +464,6 @@
       (window.vaq = window.vaq || []).push(arguments);
     };
   </script>
-
   <script defer src="/_vercel/insights/script.js"></script>
 
   <script>
@@ -505,9 +484,7 @@
     });
 
     socket.on("connect", () => {
-      socket.emit("subscribe", {
-        pair: "BTCB2_USDC"
-      });
+      socket.emit("subscribe", { pair: "BTCB2_USDC" });
     });
 
     socket.on("exchange:trades", (data) => {
@@ -574,11 +551,10 @@
     }
 
     function updateStatus() {
-      if (blakePrice && btcPrice && usdToEur) {
-        status.textContent = "Market rates loaded";
-      } else {
-        status.textContent = "Loading market rates...";
-      }
+      status.textContent =
+        blakePrice && btcPrice && usdToEur
+          ? "Market rates loaded"
+          : "Loading market rates...";
     }
 
     function clearOtherInputs(active) {
@@ -593,18 +569,19 @@
 
       const usd = Number(usdInput.value);
 
-      if (!Number.isFinite(usd) || usd === 0) {
+      if (usdInput.value === "" || !Number.isFinite(usd)) {
         clearOtherInputs(usdInput);
         return;
       }
 
-      const eur = usd * usdToEur;
-      const xbt = usd / blakePrice;
-      const btc = usd / btcPrice;
+      if (usd === 0) {
+        clearOtherInputs(usdInput);
+        return;
+      }
 
-      eurInput.value = eur.toFixed(2);
-      xbtInput.value = xbt.toFixed(8);
-      btcInput.value = btc.toFixed(8);
+      eurInput.value = (usd * usdToEur).toFixed(2);
+      xbtInput.value = (usd / blakePrice).toFixed(8);
+      btcInput.value = (usd / btcPrice).toFixed(8);
     }
 
     function updateFromEUR() {
@@ -612,18 +589,15 @@
 
       const eur = Number(eurInput.value);
 
-      if (!Number.isFinite(eur) || eur === 0) {
+      if (eurInput.value === "" || !Number.isFinite(eur) || eur === 0) {
         clearOtherInputs(eurInput);
         return;
       }
 
       const usd = eur / usdToEur;
-      const xbt = usd / blakePrice;
-      const btc = usd / btcPrice;
-
       usdInput.value = usd.toFixed(2);
-      xbtInput.value = xbt.toFixed(8);
-      btcInput.value = btc.toFixed(8);
+      xbtInput.value = (usd / blakePrice).toFixed(8);
+      btcInput.value = (usd / btcPrice).toFixed(8);
     }
 
     function updateFromXBT() {
@@ -631,18 +605,15 @@
 
       const xbt = Number(xbtInput.value);
 
-      if (!Number.isFinite(xbt) || xbt === 0) {
+      if (xbtInput.value === "" || !Number.isFinite(xbt) || xbt === 0) {
         clearOtherInputs(xbtInput);
         return;
       }
 
       const usd = xbt * blakePrice;
-      const eur = usd * usdToEur;
-      const btc = usd / btcPrice;
-
       usdInput.value = usd.toFixed(2);
-      eurInput.value = eur.toFixed(2);
-      btcInput.value = btc.toFixed(8);
+      eurInput.value = (usd * usdToEur).toFixed(2);
+      btcInput.value = (usd / btcPrice).toFixed(8);
     }
 
     function updateFromBTC() {
@@ -650,18 +621,15 @@
 
       const btc = Number(btcInput.value);
 
-      if (!Number.isFinite(btc) || btc === 0) {
+      if (btcInput.value === "" || !Number.isFinite(btc) || btc === 0) {
         clearOtherInputs(btcInput);
         return;
       }
 
       const usd = btc * btcPrice;
-      const eur = usd * usdToEur;
-      const xbt = usd / blakePrice;
-
       usdInput.value = usd.toFixed(2);
-      eurInput.value = eur.toFixed(2);
-      xbtInput.value = xbt.toFixed(8);
+      eurInput.value = (usd * usdToEur).toFixed(2);
+      xbtInput.value = (usd / blakePrice).toFixed(8);
     }
 
     function updateFromActiveInput() {
@@ -720,6 +688,5 @@
       installButton.style.display = "none";
     });
   </script>
-
 </body>
 </html>
